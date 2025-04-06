@@ -15,11 +15,11 @@
       background-color: #2a2a40;
       box-shadow: 0 0 20px #000;
     }
-    label, input {
+    label, input, select {
       display: block;
       margin-bottom: 10px;
     }
-    input {
+    input, select {
       width: 100%;
       padding: 8px;
       border-radius: 5px;
@@ -46,6 +46,21 @@
   </style>
 </head>
 <body>
+  <h1>Calculadora de Qa por Hora</h1>
+
+  <label for="gamepass">Você tem a Gamepass?</label>
+  <select id="gamepass">
+    <option value="sim">Sim</option>
+    <option value="nao">Não</option>
+  </select>
+
+  <label for="tempo">Tempo para matar um monstro (em segundos):</label>
+  <input type="number" id="tempo" value="10" step="1">
+
+  <button onclick="calcularQaHora()">Calcular Qa por Hora</button>
+
+  <div class="result" id="qaResultado"></div>
+
   <h1>Calculadora de Farm - Espada SS</h1>
 
   <label for="espadaE">Preço da Espada Rank E (Qa):</label>
@@ -58,13 +73,13 @@
   <label for="s">S:</label>
   <input type="number" id="s" value="0">
 
-  <label for="s">A:</label>
+  <label for="a">A:</label>
   <input type="number" id="a" value="0">
 
   <label for="b">B:</label>
   <input type="number" id="b" value="0">
 
-  <label for="d">C:</label>
+  <label for="c">C:</label>
   <input type="number" id="c" value="0">
 
   <label for="d">D:</label>
@@ -78,6 +93,23 @@
   <div class="result" id="resultado"></div>
 
   <script>
+    function calcularQaHora() {
+      const tempo = parseFloat(document.getElementById("tempo").value);
+      const gamepass = document.getElementById("gamepass").value;
+
+      let ganhoPorMonstroT = gamepass === "sim" ? 40 : 20;
+      let ganhoPorSegundo = ganhoPorMonstroT / tempo;
+      let ganhoPorHoraT = ganhoPorSegundo * 3600;
+      let ganhoPorHoraQa = ganhoPorHoraT / 1000;
+
+      document.getElementById("qaResultado").innerHTML = `
+        <p><strong>Ganho por monstro:</strong> ${ganhoPorMonstroT}T</p>
+        <p><strong>Qa estimado por hora:</strong> ${ganhoPorHoraQa.toFixed(2)} Qa</p>
+      `;
+
+      document.getElementById("qaHora").value = ganhoPorHoraQa.toFixed(2);
+    }
+
     function calcular() {
       const precoE = parseFloat(document.getElementById("espadaE").value);
       const qaHora = parseFloat(document.getElementById("qaHora").value);
