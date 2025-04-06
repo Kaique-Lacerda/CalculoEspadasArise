@@ -56,16 +56,22 @@
 
   <h3>Espadas que você já possui:</h3>
   <label for="s">S:</label>
-  <input type="number" id="s" value="1">
+  <input type="number" id="s" value="0">
+
+  <label for="s">A:</label>
+  <input type="number" id="a" value="0">
 
   <label for="b">B:</label>
-  <input type="number" id="b" value="2">
+  <input type="number" id="b" value="0">
+
+  <label for="d">C:</label>
+  <input type="number" id="c" value="0">
 
   <label for="d">D:</label>
-  <input type="number" id="d" value="2">
+  <input type="number" id="d" value="0">
 
   <label for="e">E:</label>
-  <input type="number" id="e" value="1">
+  <input type="number" id="e" value="0">
 
   <button onclick="calcular()">Calcular</button>
 
@@ -77,11 +83,13 @@
       const qaHora = parseFloat(document.getElementById("qaHora").value);
 
       const s = parseInt(document.getElementById("s").value);
+      const a = parseInt(document.getElementById("a").value);
       const b = parseInt(document.getElementById("b").value);
+      const c = parseInt(document.getElementById("c").value);
       const d = parseInt(document.getElementById("d").value);
       const e = parseInt(document.getElementById("e").value);
 
-      const totalE = s * 243 + b * 27 + d * 3 + e;
+      const totalE = s * 243 + a * 81 + b * 27 + c * 9 + d * 3 + e;
       const faltamE = 729 - totalE;
 
       const custoFaltante = faltamE * precoE;
