@@ -64,10 +64,10 @@
   <h1>Calculadora de Farm - Espada SS</h1>
 
   <label for="espadaE">Preço da Espada Rank E (Qa):</label>
-  <input type="number" id="espadaE" value="1.33" step="0.01">
+  <input type="number" id="espadaE" value="86.58" step="0.01">
 
   <label for="qaHora">Qa ganhos por hora:</label>
-  <input type="number" id="qaHora" value="14.4" step="0.1">
+  <input type="number" id="qaHora" value="0" step="0.1">
 
   <h3>Espadas que você já possui:</h3>
   <label for="s">S:</label>
@@ -97,13 +97,12 @@
       const tempo = parseFloat(document.getElementById("tempo").value);
       const gamepass = document.getElementById("gamepass").value;
 
-      let ganhoPorMonstroT = gamepass === "sim" ? 40 : 20;
-      let ganhoPorSegundo = ganhoPorMonstroT / tempo;
-      let ganhoPorHoraT = ganhoPorSegundo * 3600;
-      let ganhoPorHoraQa = ganhoPorHoraT / 1000;
+      let ganhoPorMonstroQa = gamepass === "sim" ? 1.3 : 0.65;
+      let ganhoPorSegundo = ganhoPorMonstroQa / tempo;
+      let ganhoPorHoraQa = ganhoPorSegundo * 3600;
 
       document.getElementById("qaResultado").innerHTML = `
-        <p><strong>Ganho por monstro:</strong> ${ganhoPorMonstroT}T</p>
+        <p><strong>Ganho por monstro:</strong> ${ganhoPorMonstroQa.toFixed(2)} Qa</p>
         <p><strong>Qa estimado por hora:</strong> ${ganhoPorHoraQa.toFixed(2)} Qa</p>
       `;
 
