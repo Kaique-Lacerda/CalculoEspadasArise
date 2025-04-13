@@ -69,25 +69,20 @@
   <label for="qaHora">Qa ganhos por hora:</label>
   <input type="number" id="qaHora" value="0" step="0.1">
 
-  <label for="moneyAtual">Qa que você já tem:</label>
-  <input type="number" id="moneyAtual" value="0" step="0.01">
+  <label for="moneyAtual">Qa disponíveis no momento:</label>
+  <input type="number" id="moneyAtual" value="0" step="0.1">
 
   <h3>Espadas que você já possui:</h3>
   <label for="s">S:</label>
   <input type="number" id="s" value="0">
-
   <label for="a">A:</label>
   <input type="number" id="a" value="0">
-
   <label for="b">B:</label>
   <input type="number" id="b" value="0">
-
   <label for="c">C:</label>
   <input type="number" id="c" value="0">
-
   <label for="d">D:</label>
   <input type="number" id="d" value="0">
-
   <label for="e">E:</label>
   <input type="number" id="e" value="0">
 
@@ -96,6 +91,16 @@
   <div class="result" id="resultado"></div>
 
   <script>
+    function formatarQa(valor) {
+      const unidades = ['Qa', 'Qi', 'Si', 'Se', 'Oc', 'No', 'Dc'];
+      let i = 0;
+      while (valor >= 1000 && i < unidades.length - 1) {
+        valor /= 1000;
+        i++;
+      }
+      return `${valor.toFixed(2)} ${unidades[i]}`;
+    }
+
     function calcularQaHora() {
       const tempo = parseFloat(document.getElementById("tempo").value);
       const gamepass = document.getElementById("gamepass").value;
@@ -105,8 +110,8 @@
       let ganhoPorHoraQa = ganhoPorSegundo * 3600;
 
       document.getElementById("qaResultado").innerHTML = `
-        <p><strong>Ganho por monstro:</strong> ${ganhoPorMonstroQa.toFixed(2)} Qa</p>
-        <p><strong>Qa estimado por hora:</strong> ${ganhoPorHoraQa.toFixed(2)} Qa</p>
+        <p><strong>Ganho por monstro:</strong> ${formatarQa(ganhoPorMonstroQa)}</p>
+        <p><strong>Qa estimado por hora:</strong> ${formatarQa(ganhoPorHoraQa)}</p>
       `;
 
       document.getElementById("qaHora").value = ganhoPorHoraQa.toFixed(2);
@@ -126,7 +131,6 @@
 
       const totalE = s * 243 + a * 81 + b * 27 + c * 9 + d * 3 + e;
       const faltamE = 729 - totalE;
-
       const custoFaltante = faltamE * precoE;
       const custoRestante = custoFaltante - moneyAtual;
 
@@ -139,9 +143,9 @@
       document.getElementById("resultado").innerHTML = `
         <p><strong>Total de Espadas E acumuladas:</strong> ${totalE}</p>
         <p><strong>Espadas E faltando:</strong> ${faltamE}</p>
-        <p><strong>Custo total restante:</strong> ${custoFaltante.toFixed(2)} Qa</p>
-        <p><strong>Qa já disponível:</strong> ${moneyAtual.toFixed(2)} Qa</p>
-        <p><strong>Falta farmar:</strong> ${custoRestante > 0 ? custoRestante.toFixed(2) : 0} Qa</p>
+        <p><strong>Custo total necessário:</strong> ${formatarQa(custoFaltante)}</p>
+        <p><strong>Qa disponíveis:</strong> ${formatarQa(moneyAtual)}</p>
+        <p><strong>Qa restantes a farmar:</strong> ${custoRestante > 0 ? formatarQa(custoRestante) : '0 Qa'}</p>
         <p><strong>Tempo estimado de farm:</strong> ${horas} horas e ${minutos} minutos</p>
       `;
     }
