@@ -1,141 +1,87 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Calculadora de Farm - Arise Crossover</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #1e1e2f;
-      color: #f0f0f0;
-      max-width: 600px;
-      margin: 30px auto;
-      padding: 20px;
-      border-radius: 10px;
-      background-color: #2a2a40;
-      box-shadow: 0 0 20px #000;
-    }
-    label, input, select {
-      display: block;
-      margin-bottom: 10px;
-    }
-    input, select {
-      width: 100%;
-      padding: 8px;
-      border-radius: 5px;
-      border: none;
-    }
-    button {
-      padding: 10px 20px;
-      border: none;
-      background: #6c63ff;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    button:hover {
-      background: #574fd6;
-    }
-    .result {
-      margin-top: 20px;
-      background: #1b1b2f;
-      padding: 15px;
-      border-radius: 8px;
-    }
-  </style>
-</head>
-<body>
-  <h1>Calculadora de Qa por Hora</h1>
+<!-- ... (cabeçalho e estilo continuam iguais) -->
 
-  <label for="gamepass">Você tem a Gamepass?</label>
-  <select id="gamepass">
-    <option value="sim">Sim</option>
-    <option value="nao">Não</option>
-  </select>
+<h1>Calculadora de Farm - Espada SS</h1>
 
-  <label for="tempo">Tempo para matar um monstro (em segundos):</label>
-  <input type="number" id="tempo" value="10" step="1">
+<label for="espadaE">Preço da Espada Rank E (Qa):</label>
+<input type="number" id="espadaE" value="86.58" step="0.01">
 
-  <button onclick="calcularQaHora()">Calcular Qa por Hora</button>
+<label for="qaHora">Qa ganhos por hora:</label>
+<input type="number" id="qaHora" value="0" step="0.1">
 
-  <div class="result" id="qaResultado"></div>
+<label for="moneyAtual">Qa que você já tem:</label>
+<input type="number" id="moneyAtual" value="0" step="0.01">
 
-  <h1>Calculadora de Farm - Espada SS</h1>
+<h3>Espadas que você já possui:</h3>
+<label for="s">S:</label>
+<input type="number" id="s" value="0">
 
-  <label for="espadaE">Preço da Espada Rank E (Qa):</label>
-  <input type="number" id="espadaE" value="86.58" step="0.01">
+<label for="a">A:</label>
+<input type="number" id="a" value="0">
 
-  <label for="qaHora">Qa ganhos por hora:</label>
-  <input type="number" id="qaHora" value="0" step="0.1">
+<label for="b">B:</label>
+<input type="number" id="b" value="0">
 
-  <h3>Espadas que você já possui:</h3>
-  <label for="s">S:</label>
-  <input type="number" id="s" value="0">
+<label for="c">C:</label>
+<input type="number" id="c" value="0">
 
-  <label for="a">A:</label>
-  <input type="number" id="a" value="0">
+<label for="d">D:</label>
+<input type="number" id="d" value="0">
 
-  <label for="b">B:</label>
-  <input type="number" id="b" value="0">
+<label for="e">E:</label>
+<input type="number" id="e" value="0">
 
-  <label for="c">C:</label>
-  <input type="number" id="c" value="0">
+<button onclick="calcular()">Calcular</button>
 
-  <label for="d">D:</label>
-  <input type="number" id="d" value="0">
+<div class="result" id="resultado"></div>
 
-  <label for="e">E:</label>
-  <input type="number" id="e" value="0">
+<script>
+  function calcularQaHora() {
+    const tempo = parseFloat(document.getElementById("tempo").value);
+    const gamepass = document.getElementById("gamepass").value;
 
-  <button onclick="calcular()">Calcular</button>
+    let ganhoPorMonstroQa = gamepass === "sim" ? 1.3 : 0.65;
+    let ganhoPorSegundo = ganhoPorMonstroQa / tempo;
+    let ganhoPorHoraQa = ganhoPorSegundo * 3600;
 
-  <div class="result" id="resultado"></div>
+    document.getElementById("qaResultado").innerHTML = `
+      <p><strong>Ganho por monstro:</strong> ${ganhoPorMonstroQa.toFixed(2)} Qa</p>
+      <p><strong>Qa estimado por hora:</strong> ${ganhoPorHoraQa.toFixed(2)} Qa</p>
+    `;
 
-  <script>
-    function calcularQaHora() {
-      const tempo = parseFloat(document.getElementById("tempo").value);
-      const gamepass = document.getElementById("gamepass").value;
+    document.getElementById("qaHora").value = ganhoPorHoraQa.toFixed(2);
+  }
 
-      let ganhoPorMonstroQa = gamepass === "sim" ? 1.3 : 0.65;
-      let ganhoPorSegundo = ganhoPorMonstroQa / tempo;
-      let ganhoPorHoraQa = ganhoPorSegundo * 3600;
+  function calcular() {
+    const precoE = parseFloat(document.getElementById("espadaE").value);
+    const qaHora = parseFloat(document.getElementById("qaHora").value);
+    const moneyAtual = parseFloat(document.getElementById("moneyAtual").value);
 
-      document.getElementById("qaResultado").innerHTML = `
-        <p><strong>Ganho por monstro:</strong> ${ganhoPorMonstroQa.toFixed(2)} Qa</p>
-        <p><strong>Qa estimado por hora:</strong> ${ganhoPorHoraQa.toFixed(2)} Qa</p>
-      `;
+    const s = parseInt(document.getElementById("s").value);
+    const a = parseInt(document.getElementById("a").value);
+    const b = parseInt(document.getElementById("b").value);
+    const c = parseInt(document.getElementById("c").value);
+    const d = parseInt(document.getElementById("d").value);
+    const e = parseInt(document.getElementById("e").value);
 
-      document.getElementById("qaHora").value = ganhoPorHoraQa.toFixed(2);
-    }
+    const totalE = s * 243 + a * 81 + b * 27 + c * 9 + d * 3 + e;
+    const faltamE = 729 - totalE;
 
-    function calcular() {
-      const precoE = parseFloat(document.getElementById("espadaE").value);
-      const qaHora = parseFloat(document.getElementById("qaHora").value);
+    const custoFaltante = faltamE * precoE;
+    const custoRestante = custoFaltante - moneyAtual;
 
-      const s = parseInt(document.getElementById("s").value);
-      const a = parseInt(document.getElementById("a").value);
-      const b = parseInt(document.getElementById("b").value);
-      const c = parseInt(document.getElementById("c").value);
-      const d = parseInt(document.getElementById("d").value);
-      const e = parseInt(document.getElementById("e").value);
+    let tempoHoras = custoRestante / qaHora;
+    tempoHoras = tempoHoras < 0 ? 0 : tempoHoras;
 
-      const totalE = s * 243 + a * 81 + b * 27 + c * 9 + d * 3 + e;
-      const faltamE = 729 - totalE;
+    const horas = Math.floor(tempoHoras);
+    const minutos = Math.round((tempoHoras - horas) * 60);
 
-      const custoFaltante = faltamE * precoE;
-      const tempoHoras = custoFaltante / qaHora;
-
-      const horas = Math.floor(tempoHoras);
-      const minutos = Math.round((tempoHoras - horas) * 60);
-
-      document.getElementById("resultado").innerHTML = `
-        <p><strong>Total de Espadas E acumuladas:</strong> ${totalE}</p>
-        <p><strong>Espadas E faltando:</strong> ${faltamE}</p>
-        <p><strong>Custo restante:</strong> ${custoFaltante.toFixed(2)} Qa</p>
-        <p><strong>Tempo estimado de farm:</strong> ${horas} horas e ${minutos} minutos</p>
-      `;
-    }
-  </script>
-</body>
-</html>
+    document.getElementById("resultado").innerHTML = `
+      <p><strong>Total de Espadas E acumuladas:</strong> ${totalE}</p>
+      <p><strong>Espadas E faltando:</strong> ${faltamE}</p>
+      <p><strong>Custo total restante:</strong> ${custoFaltante.toFixed(2)} Qa</p>
+      <p><strong>Qa já disponível:</strong> ${moneyAtual.toFixed(2)} Qa</p>
+      <p><strong>Falta farmar:</strong> ${custoRestante > 0 ? custoRestante.toFixed(2) : 0} Qa</p>
+      <p><strong>Tempo estimado de farm:</strong> ${horas} horas e ${minutos} minutos</p>
+    `;
+  }
+</script>
